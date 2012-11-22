@@ -9,4 +9,4 @@ supports "ubuntu"
 
 
 
-recipe           "greenlib", "Installs "
+recipe           "greenlib", "Installs greenlib"
