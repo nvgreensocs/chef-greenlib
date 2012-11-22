@@ -7,11 +7,8 @@ remote_file Chef::Config[:file_cache_path]+"/greenlib-1.0.0-Source.tar.gz" do
 end
 
 
-bash "Create greensocs dir in Model Library" do
-  code <<-EOH
-    mkdir -p /vagrant/ModelLibrary/greensocs/
-  EOH
-  creates "/vagrant/ModelLibrary/greensocs"
+directory "/vagrant/ModelLibrary/greensocs" do
+  action :create
 end
 
 
@@ -26,6 +23,7 @@ bash "get GreenLib" do
   export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
   cmake -DCMAKE_INSTALL_PREFIX=/vagrant/ModelLibrary/greensocs ../greenlib-1.0.0-Source/
+  make install
 
   EOH
   creates "/vagrant/ModelLibrary/greensocs/include"
