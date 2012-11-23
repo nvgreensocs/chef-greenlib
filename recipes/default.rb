@@ -9,6 +9,7 @@ end
 
 directory "/vagrant/ModelLibrary/greensocs" do
   action :create
+  recursive true
 end
 
 
