@@ -1,4 +1,5 @@
 package "cmake"
+package "libboost1.49-dev"
 
 remote_file Chef::Config[:file_cache_path]+"/greenlib-1.0.0-Source.tar.gz" do
   source "http://www.greensocs.com/files/greenlib-1.0.0-Source.tar.gz"
