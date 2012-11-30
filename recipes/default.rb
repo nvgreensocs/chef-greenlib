@@ -1,3 +1,18 @@
+
+#  -------    CHEF-GREENLIB --------
+
+# LICENSETEXT
+# 
+#   Copyright (C) 2012 : GreenSocs Ltd
+#       http://www.greensocs.com/ , email: info@greensocs.com
+# 
+# The contents of this file are subject to the licensing terms specified
+# in the file LICENSE. Please consult this file for restrictions and
+# limitations that may apply.
+# 
+# ENDLICENSETEXT
+
+package "build-essential"
 package "cmake"
 package "libboost1.49-dev"
 
