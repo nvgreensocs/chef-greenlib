@@ -16,18 +16,18 @@ package "build-essential"
 package "cmake"
 package "libboost1.49-dev"
 
-remote_file Chef::Config[:file_cache_path]+"/greenlib-1.0.0-Source.tar.gz" do
-  source "http://www.greensocs.com/files/greenlib-1.0.0-Source.tar.gz"
-  mode "0644"
-  action :create_if_missing
-end
-
 
 directory "/vagrant/ModelLibrary/greensocs" do
   action :create
   recursive true
 end
 
+remote_file Chef::Config[:file_cache_path]+"/greenlib-1.0.0-Source.tar.gz" do
+  not_if {File.exists?('/vagrant/ModelLibrary/greensocs/include')}
+  source "http://www.greensocs.com/files/greenlib-1.0.0-Source.tar.gz"
+  mode "0644"
+  action :create_if_missing
+end
 
 bash "get GreenLib" do
   cwd Chef::Config[:file_cache_path]
