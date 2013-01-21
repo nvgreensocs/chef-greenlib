@@ -16,7 +16,7 @@ package "build-essential"
 package "cmake"
 package "libboost-filesystem1.49-dev"
 #package "libboost1.49-dev"
-
+package "git"
 
 directory "/vagrant/ModelLibrary/greensocs" do
   action :create
