@@ -24,7 +24,7 @@ directory "/vagrant/ModelLibrary/greensocs" do
 end
 
 
-bash "Checkout GreenLib"
+bash "Checkout GreenLib" do
   code <<-EOH
 # need to specify branch
     git clone  git://git.greensocs.com/greenlib  /vagrant/ModelLibrary/greensocs/greenlib.source
