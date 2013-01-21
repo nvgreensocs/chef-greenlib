@@ -51,7 +51,7 @@ ruby_block "compile GreenLib" do
        export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
        cmake -DCMAKE_INSTALL_PREFIX=/vagrant/ModelLibrary/greensocs ../greenlib.source/
-       make install | grep -v "-- Up-to-date:" | grep -v "-- Installing:"
+       make install | grep -v "Up-to-date:" | grep -v "Installing:"
      EOH
    ) { |f|  f.each_line { |line| puts line } }
   end
