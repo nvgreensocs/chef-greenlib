@@ -45,13 +45,13 @@ ruby_block "compile GreenLib" do
   block do
     IO.popen( <<-EOH
        cd /vagrant/ModelLibrary/greensocs
-       mkdir greenlib.build
+       mkdir -p greenlib.build
        cd greenlib.build
 
        export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
        cmake -DCMAKE_INSTALL_PREFIX=/vagrant/ModelLibrary/greensocs ../greenlib.source/
-       make install | grep -v "Up-to-date"
+       make install | grep -v "-- Up-to-date:" | grep -v "-- Installing:"
      EOH
    ) { |f|  f.each_line { |line| puts line } }
   end
