@@ -18,7 +18,7 @@ package "libboost-filesystem1.49-dev"
 #package "libboost1.49-dev"
 package "git"
 
-directory "/vagrant/ModelLibrary/greensocs" do
+directory "#{node[:prefix]}/ModelLibrary/greensocs" do
   action :create
   recursive true
 end
@@ -27,15 +27,15 @@ end
 bash "Checkout GreenLib" do
   code <<-EOH
 # need to specify branch
-    git clone  git://git.greensocs.com/greenlib  /vagrant/ModelLibrary/greensocs/greenlib.source
+    git clone  git://git.greensocs.com/greenlib  #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
   EOH
-  creates "/vagrant/ModelLibrary/greensocs/greenlib.source"
+  creates "#{node[:prefix]}/ModelLibrary/greensocs/greenlib.source"
   environment ({ 'http_proxy' => Chef::Config[:http_proxy] })
 end
 
 bash "Update GreenLib" do
   code <<-EOH
-    cd /vagrant/ModelLibrary/greensocs/greenlib.source
+    cd #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
     git pull origin master
   EOH
   environment ({ 'http_proxy' => Chef::Config[:http_proxy] })
@@ -44,13 +44,13 @@ end
 ruby_block "compile GreenLib" do
   block do
     IO.popen( <<-EOH
-       cd /vagrant/ModelLibrary/greensocs
+       cd #{node[:prefix]}/ModelLibrary/greensocs
        mkdir -p greenlib.build
        cd greenlib.build
 
        export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
-       cmake -DCMAKE_INSTALL_PREFIX=/vagrant/ModelLibrary/greensocs ../greenlib.source/
+       cmake -DCMAKE_INSTALL_PREFIX=#{node[:prefix]}/ModelLibrary/greensocs ../greenlib.source/
        make install | grep -v "Up-to-date:" | grep -v "Installing:"
      EOH
    ) { |f|  f.each_line { |line| puts line } }
@@ -60,7 +60,7 @@ end
 
 
 # remote_file Chef::Config[:file_cache_path]+"/greenlib-1.0.0-Source.tar.gz" do
-#   not_if {File.exists?('/vagrant/ModelLibrary/greensocs/include')}
+#   not_if {File.exists?('#{node[:prefix]}/ModelLibrary/greensocs/include')}
 #   source "http://www.greensocs.com/files/greenlib-1.0.0-Source.tar.gz"
 #   mode "0644"
 #   action :create_if_missing
@@ -76,9 +76,9 @@ end
 
 #   export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
-#   cmake -DCMAKE_INSTALL_PREFIX=/vagrant/ModelLibrary/greensocs ../greenlib-1.0.0-Source/
+#   cmake -DCMAKE_INSTALL_PREFIX=#{node[:prefix]}/ModelLibrary/greensocs ../greenlib-1.0.0-Source/
 #   make install
 
 #   EOH
-#   creates "/vagrant/ModelLibrary/greensocs/include"
+#   creates "#{node[:prefix]}/ModelLibrary/greensocs/include"
 # end
