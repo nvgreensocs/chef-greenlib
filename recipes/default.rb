@@ -12,11 +12,11 @@
 # 
 # ENDLICENSETEXT
 
-package "build-essential"
-package "cmake"
-package "libboost-filesystem1.49-dev"
-#package "libboost1.49-dev"
-package "git"
+#Add these packages to your versions cookbook
+#package "build-essential"
+#package "cmake"
+#package "libboost-filesystem1.49-dev"
+#package "git"
 
 directory "#{node[:prefix]}/ModelLibrary/greensocs" do
   action :create
