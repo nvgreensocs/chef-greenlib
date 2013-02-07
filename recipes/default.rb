@@ -44,7 +44,7 @@ end
 ruby_block "compile GreenLib" do
   block do
     IO.popen( <<-EOH
-       source #{node[:prefix]}/bash.profile.d/*
+       for i in /vagrant/bash.profile.d/* ; do source $i ; done
        # the profile should now include SystemC export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
        cd #{node[:prefix]}/ModelLibrary/greensocs
