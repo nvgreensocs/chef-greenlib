@@ -43,20 +43,18 @@ end
 
 ruby_block "compile GreenLib" do
   block do
-    IO.popen( <<-EOH
-       for i in #{node[:prexix]}/bash.profile.d/* ; do source $i ; done
+     IO.popen( ["bash", "-c", <<-EOH
+       for i in #{node[:prefix]}/bash.profile.d/* ; do source $i ; done
        # the profile should now include SystemC export SYSTEMC_HOME=/usr/local/systemc-2.3.0
 
        cd #{node[:prefix]}/ModelLibrary/greensocs
        mkdir -p greenlib.build
        cd greenlib.build
 
-       
-
        cmake -DCMAKE_INSTALL_PREFIX=#{node[:prefix]}/ModelLibrary/greensocs ../greenlib.source/
        make install | grep -v "Up-to-date:" | grep -v "Installing:"
      EOH
-   ) { |f|  f.each_line { |line| puts line } }
+   ] ) { |f|  f.each_line { |line| puts line } }
   end
 end
 
