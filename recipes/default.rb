@@ -30,7 +30,6 @@ bash "Checkout GreenLib" do
     git clone  git://git.greensocs.com/greenlib  #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
   EOH
   creates "#{node[:prefix]}/ModelLibrary/greensocs/greenlib.source"
-  environment ({ 'http_proxy' => Chef::Config[:http_proxy] })
 end
 
 bash "Update GreenLib" do
@@ -38,7 +37,6 @@ bash "Update GreenLib" do
     cd #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
     git pull origin master
   EOH
-  environment ({ 'http_proxy' => Chef::Config[:http_proxy] })
 end
 
 ruby_block "compile GreenLib" do
