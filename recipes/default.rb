@@ -26,6 +26,8 @@ end
 
 bash "Checkout GreenLib" do
   code <<-EOH
+  for i in #{node[:prefix]}/bash.profile.d/*; do . $i; done
+
 # need to specify branch
     git clone  git://git.greensocs.com/greenlib  #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
   EOH
@@ -34,8 +36,12 @@ end
 
 bash "Update GreenLib" do
   code <<-EOH
+  for i in #{node[:prefix]}/bash.profile.d/*; do . $i; done
+
     cd #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
-    git pull origin master
+#    git pull origin master
+    git reset --hard $version_greenlib
+
   EOH
 end
 
