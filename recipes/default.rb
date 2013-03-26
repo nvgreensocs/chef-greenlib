@@ -39,8 +39,11 @@ bash "Update GreenLib" do
   for i in #{node[:prefix]}/bash.profile.d/*; do . $i; done
 
     cd #{node[:prefix]}/ModelLibrary/greensocs/greenlib.source
-    git pull origin master
-    git reset --hard $version_greenlib
+    if [ -d .git ] ; then
+      git pull origin master;
+      git reset --hard $version_greenlib;
+    else echo "No updates possible"; 
+      fi
 
   EOH
 end
